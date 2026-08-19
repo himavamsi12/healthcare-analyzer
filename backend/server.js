@@ -20,7 +20,11 @@ app.get("/health", (req, res) => {
 app.use("/api/food", foodRoutes);
 app.use("/api/instamart", instamartRoutes);
 
-app.listen(PORT, () => {
-  console.log(`CareOrder backend running on http://localhost:${PORT}`);
-  console.log(`Mode: ${process.env.APP_MODE || "mock"}`);
-});
+if (!process.env.VERCEL) {
+  app.listen(PORT, () => {
+    console.log(`CareOrder backend running on http://localhost:${PORT}`);
+    console.log(`Mode: ${process.env.APP_MODE || "mock"}`);
+  });
+}
+
+module.exports = app;
